@@ -5,7 +5,10 @@ import org.lwjgl.BufferUtils;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+import org.nugget.components.FontRenderer;
+import org.nugget.components.SpriteRenderer;
 import org.nugget.engine.Camera;
+import org.nugget.engine.GameObject;
 import org.nugget.renderer.Shader;
 import org.nugget.renderer.Texture;
 import org.nugget.util.Time;
@@ -20,10 +23,10 @@ public class LevelEditorScene extends Scene {
 
     private float[] vertexArray = {
             // position               // color                     // uv-coordinates
-            100.0f, -0.0f, 0.0f,       1.0f, 0.0f, 0.0f, 1.0f,     1, 1,   // Bottom right 0
-            -0.0f,  100.0f, 0.0f,      0.0f, 1.0f, 0.0f, 1.0f,     0, 0,   // Top left     1
+            100.0f, 0.0f, 0.0f,       1.0f, 0.0f, 0.0f, 1.0f,     1, 1,   // Bottom right 0
+            0.0f,  100.0f, 0.0f,       0.0f, 1.0f, 0.0f, 1.0f,     0, 0,   // Top left     1
             100.0f,  100.0f, 0.0f ,    1.0f, 0.0f, 1.0f, 1.0f,     1, 0,   // Top right    2
-            -0.0f, -0.0f, 0.0f,        1.0f, 1.0f, 0.0f, 1.0f,     0, 1    // Bottom left  3
+            0.0f,   0.0f, 0.0f,        1.0f, 1.0f, 0.0f, 1.0f,     0, 1    // Bottom left  3
     };
 
     // IMPORTANT: Must be in counter-clockwise order
@@ -43,13 +46,22 @@ public class LevelEditorScene extends Scene {
     private Shader defaultShader;
     private Texture testTexture;
 
+    GameObject testObj;
+    private boolean firstTime = false;
+
     public LevelEditorScene() {
 
     }
 
     @Override
     public void init() {
-        this.camera = new Camera(new Vector2f());
+        System.out.println("Creating test object");
+        this.testObj = new GameObject("test object");
+        this.testObj.addComponent(new SpriteRenderer());
+        this.testObj.addComponent(new FontRenderer());
+        this.addGameObjectToScene(this.testObj);
+
+        this.camera = new Camera(new Vector2f(-200, -300));
         defaultShader = new Shader("assets/shaders/default.glsl");
         defaultShader.compile();
 
@@ -123,5 +135,17 @@ public class LevelEditorScene extends Scene {
         glBindVertexArray(0);
 
         defaultShader.detach();
+
+        if (!firstTime) {
+            System.out.println("Creating game object");
+            GameObject go = new GameObject("game Test 2");
+            go.addComponent(new SpriteRenderer());
+            this.addGameObjectToScene(go);
+            firstTime = true;
+        }
+
+        for (GameObject go : gameObjects) {
+            go.update(dt);
+        }
     }
 }
