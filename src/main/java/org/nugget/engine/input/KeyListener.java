@@ -1,4 +1,4 @@
-package org.nugget.engine;
+package org.nugget.engine.input;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
