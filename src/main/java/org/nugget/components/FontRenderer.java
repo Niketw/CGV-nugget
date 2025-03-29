@@ -2,12 +2,14 @@ package org.nugget.components;
 
 import org.nugget.engine.Component;
 
+import java.awt.font.FontRenderContext;
+
 public class FontRenderer extends Component {
 
     @Override
     public void start() {
         if (gameObject.getComponent(SpriteRenderer.class) != null) {
-            System.out.println("Found font renderer");
+            System.out.println("Found Font Renderer!");
         }
     }
 

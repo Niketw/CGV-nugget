@@ -3,11 +3,6 @@ package org.nugget.engine;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import org.nugget.engine.input.KeyListener;
-import org.nugget.engine.input.MouseListener;
-import org.nugget.engine.scenes.LevelEditorScene;
-import org.nugget.engine.scenes.LevelScene;
-import org.nugget.engine.scenes.Scene;
 import org.nugget.util.Time;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -18,10 +13,12 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Window {
     private int width, height;
     private String title;
-    private static Window instance = null;
     private long glfwWindow;
 
     public float r, g, b, a;
+    private boolean fadeToBlack = false;
+
+    private static Window window = null;
 
     private static Scene currentScene;
 
@@ -29,10 +26,9 @@ public class Window {
         this.width = 1920;
         this.height = 1080;
         this.title = "Nugget";
-
-        r = 1;
-        g = 1;
-        b = 1;
+        r = 0;
+        b = 0;
+        g = 0;
         a = 1;
     }
 
@@ -55,11 +51,15 @@ public class Window {
     }
 
     public static Window get() {
-        if (Window.instance == null) {
-            Window.instance = new Window();
+        if (Window.window == null) {
+            Window.window = new Window();
         }
 
-        return Window.instance;
+        return Window.window;
+    }
+
+    public static Scene getScene() {
+        return get().currentScene;
     }
 
     public void run() {
@@ -68,17 +68,17 @@ public class Window {
         init();
         loop();
 
-        // Free memory
+        // Free the memory
         glfwFreeCallbacks(glfwWindow);
         glfwDestroyWindow(glfwWindow);
 
-        // Terminate GLFW and free error callback
+        // Terminate GLFW and the free the error callback
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
 
     public void init() {
-        // Setup error callback
+        // Setup an error callback
         GLFWErrorCallback.createPrint(System.err).set();
 
         // Initialize GLFW
@@ -92,26 +92,23 @@ public class Window {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
-        // Create window
+        // Create the window
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
-
         if (glfwWindow == NULL) {
             throw new IllegalStateException("Failed to create the GLFW window.");
         }
 
-        // Callbacks
         glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
 
-        // Make OpenGL context current
+        // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
-
         // Enable v-sync
         glfwSwapInterval(1);
 
-        // Make window visible
+        // Make the window visible
         glfwShowWindow(glfwWindow);
 
         // This line is critical for LWJGL's interoperation with GLFW's
@@ -140,7 +137,6 @@ public class Window {
                 currentScene.update(dt);
             }
 
-            // Swap buffers
             glfwSwapBuffers(glfwWindow);
 
             endTime = Time.getTime();
@@ -149,3 +145,4 @@ public class Window {
         }
     }
 }
+

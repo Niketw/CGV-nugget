@@ -1,6 +1,4 @@
-package org.nugget.engine.scenes;
-
-import org.nugget.engine.Window;
+package org.nugget.engine;
 
 public class LevelScene extends Scene {
     public LevelScene() {

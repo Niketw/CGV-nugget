@@ -2,7 +2,7 @@ package org.nugget.engine;
 
 public abstract class Component {
 
-    public GameObject gameObject;
+    public GameObject gameObject = null;
 
     public void start() {
 

@@ -3,6 +3,7 @@ package org.nugget.renderer;
 import org.joml.*;
 import org.lwjgl.BufferUtils;
 
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.file.Files;
@@ -66,7 +67,6 @@ public class Shader {
 
         // First load and compile the vertex shader
         vertexID = glCreateShader(GL_VERTEX_SHADER);
-
         // Pass the shader source to the GPU
         glShaderSource(vertexID, vertexSource);
         glCompileShader(vertexID);
@@ -82,7 +82,6 @@ public class Shader {
 
         // First load and compile the vertex shader
         fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
-
         // Pass the shader source to the GPU
         glShaderSource(fragmentID, fragmentSource);
         glCompileShader(fragmentID);
