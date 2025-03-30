@@ -6,6 +6,9 @@ group = 'org.nugget'
 version = '1.0-SNAPSHOT'
 
 repositories {
+    flatDir {
+        dirs 'libs' // Local JARs in libs directory
+    }
     mavenCentral()
 }
 
@@ -18,13 +21,27 @@ test {
     useJUnitPlatform()
 }
 
-project.ext.lwjglVersion = "3.3.6"
+project.ext.lwjglVersion = "3.2.3"
 project.ext.jomlVersion = "1.10.7"
 project.ext.lwjglNatives = "natives-windows"
 
 dependencies {
-    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    // JUnit for testing
+    testImplementation 'junit:junit:4.13.2'
 
+    // Box2D (local JAR in libs directory)
+    implementation name: 'jbox2d-library'
+
+    // GSON for JSON parsing
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // ImGUI Java bindings
+    implementation "io.github.spair:imgui-java-app:1.81.0"
+
+    // LWJGL BOM (Version management)
+    implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
+
+    // LWJGL modules
     implementation "org.lwjgl:lwjgl"
     implementation "org.lwjgl:lwjgl-assimp"
     implementation "org.lwjgl:lwjgl-glfw"
@@ -32,6 +49,12 @@ dependencies {
     implementation "org.lwjgl:lwjgl-openal"
     implementation "org.lwjgl:lwjgl-opengl"
     implementation "org.lwjgl:lwjgl-stb"
+
+    // LWJGL native libraries (auto-detect based on OS)
+    def lwjglNatives = System.getProperty("os.name").toLowerCase().contains("win") ? "natives-windows" :
+            System.getProperty("os.name").toLowerCase().contains("mac") ? "natives-macos" :
+                    "natives-linux"
+
     runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-assimp::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
@@ -39,5 +62,7 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
-    implementation "org.joml:joml:${jomlVersion}"
+
+    // JOML for linear algebra
+    implementation "org.joml:joml:1.9.23"
 }
