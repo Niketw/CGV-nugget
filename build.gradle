@@ -2,46 +2,40 @@ plugins {
     id 'java'
 }
 
-group = 'org.nugget'
-version = '1.0-SNAPSHOT'
+version '1.0-SNAPSHOT'
 
 repositories {
     flatDir {
-        dirs 'libs' // Local JARs in libs directory
+        dirs 'libs'
     }
     mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-}
-
-test {
-    useJUnitPlatform()
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
 project.ext.lwjglVersion = "3.2.3"
-project.ext.jomlVersion = "1.10.7"
+project.ext.jomlVersion = "1.9.23"
 project.ext.lwjglNatives = "natives-windows"
+project.ext.imguiVersion = '1.81.0'
 
 dependencies {
-    // JUnit for testing
-    testImplementation 'junit:junit:4.13.2'
-
-    // Box2D (local JAR in libs directory)
+    // Box2D
     implementation name: 'jbox2d-library'
 
-    // GSON for JSON parsing
+    // JUnit
+    testImplementation('junit:junit:4.13')
+
+    // GSON
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    // ImGUI Java bindings
-    implementation "io.github.spair:imgui-java-app:1.81.0"
+    // ImGUI stuff
+    implementation "io.github.spair:imgui-java-app:$imguiVersion"
 
-    // LWJGL BOM (Version management)
-    implementation platform("org.lwjgl:lwjgl-bom:3.2.3")
+     // LWJGL stuff
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
-    // LWJGL modules
     implementation "org.lwjgl:lwjgl"
     implementation "org.lwjgl:lwjgl-assimp"
     implementation "org.lwjgl:lwjgl-glfw"
@@ -49,12 +43,6 @@ dependencies {
     implementation "org.lwjgl:lwjgl-openal"
     implementation "org.lwjgl:lwjgl-opengl"
     implementation "org.lwjgl:lwjgl-stb"
-
-    // LWJGL native libraries (auto-detect based on OS)
-    def lwjglNatives = System.getProperty("os.name").toLowerCase().contains("win") ? "natives-windows" :
-            System.getProperty("os.name").toLowerCase().contains("mac") ? "natives-macos" :
-                    "natives-linux"
-
     runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-assimp::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
@@ -62,7 +50,48 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+    implementation "org.joml:joml:${jomlVersion}"
+}
 
-    // JOML for linear algebra
-    implementation "org.joml:joml:1.9.23"
+jar {
+    manifest {
+        attributes (
+                'Class-Path': configurations.runtimeClasspath.collect { it.getName() }.join(' '),
+                'Main-Class': 'Main'
+        )
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task copyAssets(type: Copy) {
+    copy {
+        from "assets"
+        into "${buildDir}/libs/assets"
+    }
+
+    copy {
+        from "level.txt"
+        into "${buildDir}/libs"
+    }
+}
+
+task fatJar(type: Jar) {
+  manifest.from jar.manifest
+  from {
+    configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+  } {
+    exclude "META-INF/*.SF"
+    exclude "META-INF/*.DSA"
+    exclude "META-INF/*.RSA"
+  }
+  with jar
+}
+
+fatJar.dependsOn(copyAssets)
+
+artifacts {
+    archives fatJar
 }
