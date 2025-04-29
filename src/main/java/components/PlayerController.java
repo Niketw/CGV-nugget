@@ -27,8 +27,8 @@ public class PlayerController extends Component {
     }
 
     public float walkSpeed = 1.9f;
-    public float jumpBoost = 2.5f;
-    public float jumpImpulse = 7.5f;
+    public float jumpBoost = 5.0f;
+    public float jumpImpulse = 15.0f;
     public float slowDownForce = 0.05f;
     public Vector2f terminalVelocity = new Vector2f(2.1f, 7.0f);
 

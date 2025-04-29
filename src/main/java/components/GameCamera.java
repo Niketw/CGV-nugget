@@ -8,7 +8,6 @@ import org.joml.Vector4f;
 public class GameCamera extends Component {
     private transient GameObject player;
     private transient Camera gameCamera;
-    private transient float highestX = Float.MIN_VALUE;
     private transient float undergroundYLevel = 0.0f;
     private transient float cameraBuffer = 1.5f;
     private transient float playerBuffer = 0.25f;
@@ -23,6 +22,7 @@ public class GameCamera extends Component {
     @Override
     public void start() {
         this.player = Window.getScene().getGameObjectWith(PlayerController.class);
+        this.gameCamera.position.set(0.0f, 0.0f);
         this.gameCamera.clearColor.set(skyColor);
         this.undergroundYLevel = this.gameCamera.position.y -
                 this.gameCamera.getProjectionSize().y - this.cameraBuffer;
@@ -31,8 +31,7 @@ public class GameCamera extends Component {
     @Override
     public void update(float dt) {
         if (player != null && !player.getComponent(PlayerController.class).hasWon()) {
-            gameCamera.position.x = Math.max(player.transform.position.x - 2.5f, highestX);
-            highestX = Math.max(highestX, gameCamera.position.x);
+            gameCamera.position.x = player.transform.position.x - 2.5f;
 
             if (player.transform.position.y < -playerBuffer) {
                 this.gameCamera.position.y = undergroundYLevel;
