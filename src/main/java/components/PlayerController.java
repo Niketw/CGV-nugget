@@ -27,10 +27,10 @@ public class PlayerController extends Component {
     }
 
     public float walkSpeed = 1.9f;
-    public float jumpBoost = 1.0f;
-    public float jumpImpulse = 3.0f;
+    public float jumpBoost = 2.5f;
+    public float jumpImpulse = 7.5f;
     public float slowDownForce = 0.05f;
-    public Vector2f terminalVelocity = new Vector2f(2.1f, 3.1f);
+    public Vector2f terminalVelocity = new Vector2f(2.1f, 7.0f);
 
     private PlayerState playerState = PlayerState.Small;
     public transient boolean onGround = false;
@@ -38,7 +38,7 @@ public class PlayerController extends Component {
     private transient float groundDebounceTime = 0.1f;
     private transient Rigidbody2D rb;
     private transient StateMachine stateMachine;
-    private transient float bigJumpBoostFactor = 1.05f;
+    private transient float bigJumpBoostFactor = 1.2f;
     private transient float playerWidth = 0.25f;
     private transient int jumpTime = 0;
     private transient Vector2f acceleration = new Vector2f();
@@ -187,11 +187,11 @@ public class PlayerController extends Component {
         if (KeyListener.isKeyPressed(GLFW_KEY_SPACE) && (jumpTime > 0 || onGround || groundDebounce > 0)) {
             if ((onGround || groundDebounce > 0) && jumpTime == 0) {
                 AssetPool.getSound("assets/sounds/jump-small.ogg").play();
-                jumpTime = 28;
+                jumpTime = 45;
                 this.velocity.y = jumpImpulse;
             } else if (jumpTime > 0) {
                 jumpTime--;
-                this.velocity.y = ((jumpTime / 2.2f) * jumpBoost);
+                this.velocity.y = ((jumpTime / 1.5f) * jumpBoost);
             } else {
                 this.velocity.y = 0;
             }
