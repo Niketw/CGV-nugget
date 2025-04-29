@@ -1,6 +1,6 @@
 package physics2d;
 
-import jade.GameObject;
+import nugget.GameObject;
 import org.jbox2d.callbacks.RayCastCallback;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Fixture;

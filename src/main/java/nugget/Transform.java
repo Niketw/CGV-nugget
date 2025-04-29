@@ -1,4 +1,4 @@
-package jade;
+package nugget;
 
 import components.Component;
 import editor.JImGui;

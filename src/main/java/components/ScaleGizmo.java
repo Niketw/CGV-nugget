@@ -1,7 +1,7 @@
 package components;
 
 import editor.PropertiesWindow;
-import jade.MouseListener;
+import nugget.MouseListener;
 import org.joml.Vector2f;
 
 public class ScaleGizmo extends Gizmo {

@@ -4,7 +4,7 @@ import imgui.ImGui;
 import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiStyleVar;
 import imgui.type.ImString;
-import jade.Window;
+import nugget.Window;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;

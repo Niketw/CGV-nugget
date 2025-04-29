@@ -1,4 +1,4 @@
-package jade;
+package nugget;
 
 public enum Direction {
     Up,

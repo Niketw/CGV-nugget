@@ -1,9 +1,9 @@
 package components;
 
-import jade.GameObject;
-import jade.KeyListener;
-import jade.Prefabs;
-import jade.Window;
+import nugget.GameObject;
+import nugget.KeyListener;
+import nugget.Prefabs;
+import nugget.Window;
 import org.jbox2d.dynamics.contacts.Contact;
 import org.joml.Vector2f;
 import org.joml.Vector4f;

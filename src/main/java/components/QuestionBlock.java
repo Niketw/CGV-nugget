@@ -1,8 +1,8 @@
 package components;
 
-import jade.GameObject;
-import jade.Prefabs;
-import jade.Window;
+import nugget.GameObject;
+import nugget.Prefabs;
+import nugget.Window;
 
 public class QuestionBlock extends Block {
     private enum BlockType {

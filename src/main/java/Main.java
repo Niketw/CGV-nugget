@@ -1,4 +1,4 @@
-import jade.Window;
+import nugget.Window;
 
 public class Main {
     public static void main(String[] args) {

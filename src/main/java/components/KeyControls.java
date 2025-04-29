@@ -1,9 +1,9 @@
 package components;
 
 import editor.PropertiesWindow;
-import jade.GameObject;
-import jade.KeyListener;
-import jade.Window;
+import nugget.GameObject;
+import nugget.KeyListener;
+import nugget.Window;
 import util.Settings;
 
 import java.util.ArrayList;

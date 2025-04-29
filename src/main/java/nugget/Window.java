@@ -1,4 +1,4 @@
-package jade;
+package nugget;
 
 import observers.EventSystem;
 import observers.Observer;
@@ -49,7 +49,7 @@ public class Window implements Observer {
     private Window() {
         this.width = 1920;
         this.height = 1200;
-        this.title = "Jade";
+        this.title = "Nugget 2D game engine";
         EventSystem.addObserver(this);
     }
 

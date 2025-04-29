@@ -1,4 +1,4 @@
-package jade;
+package nugget;
 
 import editor.GameViewWindow;
 import editor.MenuBar;
@@ -14,8 +14,6 @@ import imgui.type.ImBoolean;
 import renderer.PickingTexture;
 import scenes.Scene;
 
-import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
 import java.io.File;
 
 import static org.lwjgl.glfw.GLFW.*;

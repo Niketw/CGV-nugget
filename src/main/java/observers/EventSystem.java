@@ -1,6 +1,6 @@
 package observers;
 
-import jade.GameObject;
+import nugget.GameObject;
 import observers.events.Event;
 
 import java.util.ArrayList;

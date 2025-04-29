@@ -1,4 +1,4 @@
-package jade;
+package nugget;
 
 import org.joml.Matrix4f;
 import org.joml.Vector2f;

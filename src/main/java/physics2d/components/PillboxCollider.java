@@ -1,11 +1,8 @@
 package physics2d.components;
 
 import components.Component;
-import jade.Window;
-import org.jbox2d.dynamics.contacts.ContactVelocityConstraint;
+import nugget.Window;
 import org.joml.Vector2f;
-import physics2d.components.Box2DCollider;
-import physics2d.components.CircleCollider;
 
 public class PillboxCollider extends Component {
     private transient CircleCollider bottomCircle = new CircleCollider();

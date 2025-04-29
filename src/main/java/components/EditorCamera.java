@@ -1,8 +1,8 @@
 package components;
 
-import jade.Camera;
-import jade.KeyListener;
-import jade.MouseListener;
+import nugget.Camera;
+import nugget.KeyListener;
+import nugget.MouseListener;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_KP_DECIMAL;

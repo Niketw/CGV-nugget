@@ -14,6 +14,11 @@ public class ComponentDeserializer implements JsonSerializer<Component>,
         String type = jsonObject.get("type").getAsString();
         JsonElement element = jsonObject.get("properties");
 
+        // Handle the package rename from 'jade' to 'nugget'
+        if (type.startsWith("jade.")) {
+            type = type.replace("jade.", "nugget.");
+        }
+
         try {
             return context.deserialize(element, Class.forName(type));
         } catch (ClassNotFoundException e) {

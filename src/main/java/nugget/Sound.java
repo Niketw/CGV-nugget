@@ -1,4 +1,4 @@
-package jade;
+package nugget;
 
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;

@@ -1,9 +1,8 @@
 package physics2d.components;
 
 import components.Component;
-import jade.Window;
+import nugget.Window;
 import org.joml.Vector2f;
-import physics2d.Physics2D;
 import renderer.DebugDraw;
 
 public class CircleCollider extends Component {

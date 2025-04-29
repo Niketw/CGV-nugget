@@ -1,21 +1,16 @@
 package editor;
 
-import components.NonPickable;
 import components.SpriteRenderer;
 import imgui.ImGui;
-import jade.GameObject;
-import jade.MouseListener;
+import nugget.GameObject;
 import org.joml.Vector4f;
 import physics2d.components.Box2DCollider;
 import physics2d.components.CircleCollider;
 import physics2d.components.Rigidbody2D;
 import renderer.PickingTexture;
-import scenes.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
 
 public class PropertiesWindow {
     private List<GameObject> activeGameObjects;

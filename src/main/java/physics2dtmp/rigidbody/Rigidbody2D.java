@@ -1,7 +1,7 @@
 package physics2dtmp.rigidbody;
 
 import components.Component;
-import jade.Transform;
+import nugget.Transform;
 import org.joml.Vector2f;
 import physics2dtmp.primitives.Collider2D;
 

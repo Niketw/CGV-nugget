@@ -1,4 +1,4 @@
-package jade;
+package nugget;
 
 import components.*;
 import org.joml.Vector2f;
