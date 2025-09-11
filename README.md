@@ -2,10 +2,6 @@
 
 *A lightweight, cross-platform 2D game engine in Java leveraging LWJGL and ImGui Java bindings.*
 
-<p align="left">
-  <img src="assets/images/nugget.png" alt="Nugget" width="250"/>
-</p>
-
 ## 🚀 Features
 
 - **2D Sprite & Tile Rendering**  
@@ -87,3 +83,4 @@ All third-party libraries and assets are properly credited in the LICENSE or res
 Built with ☕ Java and ❤️ open source.
 
 ---
+
